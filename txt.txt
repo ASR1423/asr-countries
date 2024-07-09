@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السياحة حول العالم</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>السياحة حول العالم</h1>
+    <ul id="country-list">
+        <!-- سيتم ملء القائمة بالدول من خلال JavaScript -->
+    </ul>
+    <script src="script.js"></script>
+</body>
+</html>

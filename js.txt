@@ -1,0 +1,86 @@
+const worldData = {
+    "اليابان": {
+        "طوكيو": ["برج طوكيو", "ديزني لاند"],
+        "كيوتو": ["معبد كيوميزو", "حديقة بامبو"],
+        "أوساكا": ["قلعة أوساكا", "أكواريوم كايكيوكان"]
+    },
+    "كوريا الجنوبية": {
+        "سيول": ["قصر جيونغبوك", "برج إن سول"],
+        "بوسان": ["شاطئ هايونداي", "سوق جاكالجي"]
+    },
+    "الصين": {
+        "بكين": ["المدينة المحرمة", "سور الصين العظيم"],
+        "شنغهاي": ["برج لؤلؤة الشرق", "شارع نانجينغ"]
+    },
+    "الولايات المتحدة": {
+        "نيويورك": ["تمثال الحرية", "سنترال بارك"],
+        "سان فرانسيسكو": ["جسر البوابة الذهبية", "جزيرة ألكتراز"]
+    },
+    "فرنسا": {
+        "باريس": ["برج إيفل", "متحف اللوفر"],
+        "نيس": ["بروميناد ديزونغليه", "حديقة فينيكس"]
+    },
+    "المملكة المتحدة": {
+        "لندن": ["عين لندن", "قصر باكنغهام"],
+        "مانشستر": ["ملعب أولد ترافورد", "متحف العلوم والصناعة"]
+    },
+    "إيطاليا": {
+        "روما": ["الكولوسيوم", "المنتدى الروماني"],
+        "فينيسيا": ["القنال الكبير", "جسر الريالتو"]
+    },
+    "ألمانيا": {
+        "برلين": ["بوابة براندنبورغ", "جدار برلين"],
+        "ميونيخ": ["ميدان مارينبلاتز", "قصر نيمفنبورغ"]
+    }
+    // يمكنك إضافة المزيد من الدول والمدن والمعالم السياحية هنا
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const countryList = document.getElementById('country-list');
+    
+    for (const country in worldData) {
+        const countryItem = document.createElement('li');
+        countryItem.textContent = country;
+        countryItem.addEventListener('click', () => showCities(country));
+        countryList.appendChild(countryItem);
+    }
+});
+
+function showCities(country) {
+    const countryList = document.getElementById('country-list');
+    countryList.innerHTML = '';
+
+    for (const city in worldData[country]) {
+        const cityItem = document.createElement('li');
+        cityItem.textContent = city;
+        cityItem.addEventListener('click', () => showTouristSpots(country, city));
+        countryList.appendChild(cityItem);
+    }
+
+    const backButton = document.createElement('button');
+    backButton.textContent = 'رجوع إلى الدول';
+    backButton.addEventListener('click', () => location.reload());
+    countryList.appendChild(backButton);
+}
+
+function showTouristSpots(country, city) {
+    const countryList = document.getElementById('country-list');
+    countryList.innerHTML = '';
+
+    worldData[country][city].forEach(spot => {
+        const spotItem = document.createElement('li');
+        spotItem.textContent = spot;
+        spotItem.addEventListener('click', () => openGoogleMaps(spot));
+        countryList.appendChild(spotItem);
+    });
+
+    const backButton = document.createElement('button');
+    backButton.textContent = 'رجوع إلى المدن';
+    backButton.addEventListener('click', () => showCities(country));
+    countryList.appendChild(backButton);
+}
+
+function openGoogleMaps(spot) {
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot)}`;
+    window.open(googleMapsUrl, '_blank');
+}
